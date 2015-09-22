@@ -6,7 +6,11 @@ public class BahtText {
     private static final String txtNum[] = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
     private static final String txtWeight[] = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
 
-    public static String getBath(final String currency)
+    public static String toText(final double currency) {
+        return toText(Double.toString(currency));
+    }
+
+    public static String toText(final String currency)
             throws NumberFormatException {
         String number = currency;
 

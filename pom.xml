@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>2.5.1</version>
                 <configuration>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
@@ -60,10 +60,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.9.6</version>
-            <scope>test</scope>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.hamcrest</groupId>
@@ -71,14 +70,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-
-
     </dependencies>
 
     <reporting>
