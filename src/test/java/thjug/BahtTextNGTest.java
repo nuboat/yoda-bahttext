@@ -68,4 +68,11 @@ public class BahtTextNGTest {
         assert result.equals(expResult);
     }
 
+    @Test
+    public void ล้านล้านบาท() {
+        String expResult = "หนึ่งล้านล้านบาท";
+        String result = BahtText.getBath("1,000,000,000,000");
+        assert result.equals(expResult);
+    }
+
 }
