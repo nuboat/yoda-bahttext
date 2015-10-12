@@ -14,39 +14,14 @@ public class BahtText {
             throws NumberFormatException {
         String number = currency;
 
-        if (number == null) {
-            throw new NumberFormatException("ข้อมูลเป็นค่า null (Null Value)");
-        }
+        number = cleanString(number);
+        number = padZeroIfDotPresented(number);
 
-        number = number.replaceAll(",", "");
-        number = number.replaceAll(" ", "");
-
-        if (number.equals("")) {
-            throw new NumberFormatException("ข้อมูลเป็นค่าว่าง (Blank Value)");
-        }
-
-        for (int i = 0; i < number.length(); i++) {
-            if ((number.charAt(i) < '0' || number.charAt(i) > '9') &&
-                    number.charAt(i) != '.') {
-                throw new NumberFormatException("ข้อมูลมีตัวอักขระ (Alphabet Value)");
-            }
-        }
-
-        if (number.charAt(0) == '.') {
-            number = "0" + number;
-        }
-
-        if (number.charAt(number.length() - 1) == '.') {
-            number += "0";
-        }
+        validateString(number);
 
         final StringTokenizer st = new StringTokenizer(number, ".");
         final String beforeDot = st.nextToken();
         String afterDot = (st.hasMoreTokens()) ? st.nextToken() : null; // ทศนิยม
-
-        if (st.hasMoreTokens()) {
-            throw new NumberFormatException("ทศนิยมมากกว่า 1 ตัว");
-        }
 
         boolean beforeDotIsZero = isZero(beforeDot); // ดูว่าหน้าทศนิยมเป็น 0 หรือไม่
         boolean afterDotIsZero = (afterDot == null) || isZero(afterDot);
@@ -62,7 +37,7 @@ public class BahtText {
         if (!beforeDotIsZero) {
             final String[] beforeDotArr = splitString(beforeDot);
             for (int i = 0; i < beforeDotArr.length; i++) {
-                result.append(genStringNumber(beforeDotArr[i]));
+                result.append(generateStringNumber(beforeDotArr[i]));
                 if (i + 1 < beforeDotArr.length) {
                     result.append("ล้าน");
                 }
@@ -82,20 +57,59 @@ public class BahtText {
 
             final String[] afterDotArr = splitString(afterDot);
             for (int i = 0; i < afterDotArr.length; i++) {
-                result.append(genStringNumber(afterDotArr[i]));
+                result.append(generateStringNumber(afterDotArr[i]));
             }
             result.append("สตางค์");
         }
         return result.toString();
     }
 
-    private static boolean isZero(final String number) {
-        for (int i = 0; i < number.length(); i++) {
-            if (number.charAt(i) != '0') {
-                return false;
+    private static void validateString(String number) {
+        if (number == null) {
+            throw new NumberFormatException("ข้อมูลเป็นค่า null (Null Value)");
+        }
+
+        if (number.equals("")) {
+            throw new NumberFormatException("ข้อมูลเป็นค่าว่าง (Blank Value)");
+        }
+
+        if(!number.chars().allMatch(c -> (c >= '0' && c <= '9') || c == '.' )) {
+            throw new NumberFormatException("ข้อมูลมีตัวอักขระ (Alphabet Value)");
+        }
+
+        if(number.indexOf('.') != number.lastIndexOf('.')) {
+            throw new NumberFormatException("ทศนิยมมากกว่า 1 ตัว");
+        }
+    }
+
+    private static String cleanString(String number) {
+        if(number == null)
+            return null;
+
+        return number.replaceAll("\\s+|,", "");
+    }
+
+    private static String padZeroIfDotPresented(String number) {
+        if(number == null)
+            return null;
+
+        String resultString = number;
+
+        if(resultString.length() != 0) {
+            if (resultString.charAt(0) == '.') {
+                resultString = "0" + resultString;
+            }
+
+            if (resultString.charAt(resultString.length() - 1) == '.') {
+                resultString = resultString + "0";
             }
         }
-        return true;
+
+        return resultString;
+    }
+
+    private static boolean isZero(final String number) {
+        return number.chars().allMatch(c -> c == '0');
     }
 
     private static String[] splitString(final String number) {
@@ -119,7 +133,7 @@ public class BahtText {
         return result;
     }
 
-    private static String genStringNumber(final String number) {
+    private static String generateStringNumber(final String number) {
         final StringBuilder result = new StringBuilder(0);
         final int length = number.length();
 

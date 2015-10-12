@@ -1,6 +1,6 @@
 # bahttext
 
-Try to run with test after refactoring code
+We strongly recommend you to run tests after refactoring code
 
 ```
-$mvn clean test
+$ mvn clean test

@@ -25,6 +25,13 @@ public class InvalidTest {
     }
 
     @Test
+    public void input_is_empty_after_filter_out_whitespaces_input_should_thrown_numberformat_exception() {
+        thrown.expect(NumberFormatException.class);
+        thrown.expectMessage("ข้อมูลเป็นค่าว่าง (Blank Value)");
+        BahtText.toText("\n,  \t\n, ,\f \r \n");
+    }
+
+    @Test
     public void input_is_not_valid_after_filter_out_input_should_thrown_numberformat_exception() {
         thrown.expect(NumberFormatException.class);
         thrown.expectMessage("ข้อมูลมีตัวอักขระ (Alphabet Value)");

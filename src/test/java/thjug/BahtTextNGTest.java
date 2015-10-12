@@ -5,6 +5,20 @@ import org.junit.Test;
 public class BahtTextNGTest {
 
     @Test
+    public void toText_methods_produce_same_result() {
+        String expResult = "หนึ่งร้อยบาทสิบสตางค์";
+        String inputString = "100.1";
+        double inputDouble = 100.1;
+
+        String resultFromString = BahtText.toText(inputString);
+        String resultFromDouble = BahtText.toText(inputDouble);
+
+        assert expResult.equals(resultFromDouble);
+        assert resultFromDouble.equals(resultFromString);
+        assert expResult.equals(resultFromString);
+    }
+
+    @Test
     public void แปลงค่าศูนย์บาท() {
         String expResult = "ศูนย์บาท";
         String result = BahtText.toText("0");
@@ -29,6 +43,13 @@ public class BahtTextNGTest {
     public void แปลงค่ายี่สิบเอ็ดบาท() {
         String expResult = "ยี่สิบเอ็ดบาท";
         String result = BahtText.toText("21");
+        assert result.equals(expResult);
+    }
+
+    @Test
+    public void แปลงค่าหนึ่งหมื่นสองพันสองร้อยหนึ่งล้านห้าแสนแปดหมื่นสี่พันเจ็ดร้อยหกสิบเอ็ดบาทสามสิบเก้าสตางค์() {
+        String expResult = "หนึ่งหมื่นสองพันสองร้อยหนึ่งล้านห้าแสนแปดหมื่นสี่พันเจ็ดร้อยหกสิบเอ็ดบาทสามสิบเก้าสตางค์";
+        String result = BahtText.toText("12,201,584,761.39");
         assert result.equals(expResult);
     }
 
