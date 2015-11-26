@@ -6,7 +6,7 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>BahtText</name>
+    <name>Baht Text</name>
 
     <organization>
         <name>Bgile Source</name>
@@ -17,6 +17,14 @@
         <developer>
             <id>@nuboat</id>
             <name>Peerapat Asoktummarungsri</name>
+        </developer>
+        <developer>
+            <id>@up1</id>
+            <name>Somkiat</name>
+        </developer>
+        <developer>
+            <id>@Thammachart</id>
+            <name>Thammachart</name>
         </developer>
     </developers>
 
@@ -63,6 +71,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

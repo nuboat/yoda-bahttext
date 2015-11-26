@@ -6,7 +6,6 @@ import org.junit.rules.ExpectedException;
 
 public class InvalidTest {
 
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

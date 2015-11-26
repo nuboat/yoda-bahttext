@@ -3,15 +3,22 @@ package thjug;
 import org.junit.Test;
 
 public class BahtTextNGTest {
+    
+    @Test
+    public void testConstructor() {
+        final BahtText b = new BahtText();
+        
+        assert b != null;
+    }
 
     @Test
     public void toText_methods_produce_same_result() {
-        String expResult = "หนึ่งร้อยบาทสิบสตางค์";
-        String inputString = "100.1";
-        double inputDouble = 100.1;
+        final String expResult = "หนึ่งร้อยบาทสิบสตางค์";
+        final String inputString = "100.1";
+        final double inputDouble = 100.1;
 
-        String resultFromString = BahtText.toText(inputString);
-        String resultFromDouble = BahtText.toText(inputDouble);
+        final String resultFromString = BahtText.toText(inputString);
+        final String resultFromDouble = BahtText.toText(inputDouble);
 
         assert expResult.equals(resultFromDouble);
         assert resultFromDouble.equals(resultFromString);
@@ -20,78 +27,89 @@ public class BahtTextNGTest {
 
     @Test
     public void แปลงค่าศูนย์บาท() {
-        String expResult = "ศูนย์บาท";
-        String result = BahtText.toText("0");
+        final String expResult = "ศูนย์บาท";
+        final String result = BahtText.toText("0");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void แปลงค่าหนึ่งบาท() {
-        String expResult = "หนึ่งบาท";
-        String result = BahtText.toText("1");
+        final String expResult = "หนึ่งบาท";
+        final String result = BahtText.toText("1");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void แปลงค่าสิบบาท() {
-        String expResult = "สิบบาท";
-        String result = BahtText.toText("10");
+        final String expResult = "สิบบาท";
+        final String result = BahtText.toText("10");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void แปลงค่ายี่สิบเอ็ดบาท() {
-        String expResult = "ยี่สิบเอ็ดบาท";
-        String result = BahtText.toText("21");
+        final String expResult = "ยี่สิบเอ็ดบาท";
+        final String result = BahtText.toText("21");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void แปลงค่าหนึ่งหมื่นสองพันสองร้อยหนึ่งล้านห้าแสนแปดหมื่นสี่พันเจ็ดร้อยหกสิบเอ็ดบาทสามสิบเก้าสตางค์() {
-        String expResult = "หนึ่งหมื่นสองพันสองร้อยหนึ่งล้านห้าแสนแปดหมื่นสี่พันเจ็ดร้อยหกสิบเอ็ดบาทสามสิบเก้าสตางค์";
-        String result = BahtText.toText("12,201,584,761.39");
+        final String expResult = "หนึ่งหมื่นสองพันสองร้อยหนึ่งล้านห้าแสนแปดหมื่นสี่พันเจ็ดร้อยหกสิบเอ็ดบาทสามสิบเก้าสตางค์";
+        final String result = BahtText.toText("12,201,584,761.39");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void แปลงค่าหนึ่งร้อยบาทยี่สิบห้าสตางค์() {
-        String expResult = "หนึ่งร้อยบาทยี่สิบห้าสตางค์";
-        String result = BahtText.toText("100.25");
+        final String expResult = "หนึ่งร้อยบาทยี่สิบห้าสตางค์";
+        final String result = BahtText.toText("100.25");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void แปลงค่าหนึ่งล้านบาท() {
-        String expResult = "หนึ่งล้านบาท";
-        String result = BahtText.toText("1,000,000");
+        final String expResult = "หนึ่งล้านบาท";
+        final String result = BahtText.toText("1,000,000");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void ค่าหลังจุดทศนิยมมากกว่าสองหลักจะถูกตัดทิ้ง() {
-        String expResult = "หนึ่งร้อยบาทสิบสองสตางค์";
-        String result = BahtText.toText("100.125");
+        final String expResult = "หนึ่งร้อยบาทสิบสองสตางค์";
+        final String result = BahtText.toText("100.125");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void ค่าหลังจุดทศนิยมน้อยกว่าสองหลักจะเพิ่มเลขศูนย์ต่อท้าย() {
-        String expResult = "หนึ่งร้อยบาทสิบสตางค์";
-        String result = BahtText.toText("100.1");
+        final String expResult = "หนึ่งร้อยบาทสิบสตางค์";
+        final String result = BahtText.toText("100.1");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void แก้ไขข้อมูลที่มีเฉพาะจุดเท่านั้น() {
-        String expResult = "ศูนย์บาท";
-        String result = BahtText.toText(".");
+        final String expResult = "ศูนย์บาท";
+        final String result = BahtText.toText(".");
+        
         assert result.equals(expResult);
     }
 
     @Test
     public void ล้านล้านบาท() {
-        String expResult = "หนึ่งล้านล้านบาท";
-        String result = BahtText.toText("1,000,000,000,000");
+        final String expResult = "หนึ่งล้านล้านบาท";
+        final String result = BahtText.toText("1,000,000,000,000");
+        
         assert result.equals(expResult);
     }
 

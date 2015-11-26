@@ -2,15 +2,27 @@ package thjug;
 
 import java.util.StringTokenizer;
 
-public class BahtText {
-    private static final String txtNum[] = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
-    private static final String txtWeight[] = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
-    private static final String txtZeroBaht = "ศูนย์บาท";
-
+public final class BahtText {
+    private static final String[] TXT_NUM = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
+    private static final String[] TXT_WEIGHT = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
+    private static final String TXT_ZEROBAHT = "ศูนย์บาท";
+    
+    /**
+     * final String amount = BahtText.toText(100.00);
+     * 
+     * @param currency 100
+     * @return String หนึ่งร้อยบาทถ้วน
+     */
     public static String toText(final double currency) {
         return toText(Double.toString(currency));
     }
 
+    /**
+     * final String amount = BahtText.toText("100.00");
+     * 
+     * @param currency 100
+     * @return String หนึ่งร้อยบาทถ้วน
+     */
     public static String toText(final String currency)
             throws NumberFormatException {
         String number = currency;
@@ -20,24 +32,25 @@ public class BahtText {
         number = padZeroIfDotPresented(number);
         validateFormat(number);
 
-        StringPair pair = tokenizeStringWithDot(number);
+        final StringPair pair = tokenizeStringWithDot(number);
 
-        if (isStringNumberCompleteZero(pair)) return txtZeroBaht;
+        if (isStringNumberCompleteZero(pair)) {
+            return TXT_ZEROBAHT;
+        }
         return generateResultString(pair);
     }
 
-
-    private static void throwIfNull(String number) {
+    private static void throwIfNull(final String number) {
         if (number == null) {
             throw new NumberFormatException("ข้อมูลเป็นค่า null (Null Value)");
         }
     }
 
-    private static String removeWhitespace(String number) {
+    private static String removeWhitespace(final String number) {
         return number.replaceAll("\\s+|,", "");
     }
 
-    private static String padZeroIfDotPresented(String number) {
+    private static String padZeroIfDotPresented(final String number) {
         String resultString = number;
 
         if (resultString.length() != 0) {
@@ -53,7 +66,7 @@ public class BahtText {
         return resultString;
     }
 
-    private static void validateFormat(String number) {
+    private static void validateFormat(final String number) {
         if (number.equals("")) {
             throw new NumberFormatException("ข้อมูลเป็นค่าว่าง (Blank Value)");
         }
@@ -69,24 +82,24 @@ public class BahtText {
 
 
 
-    private static boolean isStringNumberCompleteZero(StringPair pair) {
-        boolean beforeDotIsZero = isZero(pair.before); // ดูว่าหน้าทศนิยมเป็น 0 หรือไม่
-        boolean afterDotIsZero = (pair.after == null) || isZero(pair.after);
+    private static boolean isStringNumberCompleteZero(final StringPair pair) {
+        final boolean beforeDotIsZero = isZero(pair.before); // ดูว่าหน้าทศนิยมเป็น 0 หรือไม่
+        final boolean afterDotIsZero = (pair.after == null) || isZero(pair.after);
 
         return beforeDotIsZero && afterDotIsZero;
 
     }
 
-    private static StringPair tokenizeStringWithDot(String number) {
-        StringTokenizer st = new StringTokenizer(number, ".");
+    private static StringPair tokenizeStringWithDot(final String number) {
+        final StringTokenizer st = new StringTokenizer(number, ".");
 
-        String beforeDot = st.nextToken();
-        String afterDot = (st.hasMoreTokens()) ? st.nextToken() : null; // ทศนิยม
+        final String beforeDot = st.nextToken();
+        final String afterDot = (st.hasMoreTokens()) ? st.nextToken() : null; // ทศนิยม
 
         return new StringPair(beforeDot,afterDot);
     }
 
-    private static String generateResultString(StringPair pair) {
+    private static String generateResultString(final StringPair pair) {
         final StringBuilder result = new StringBuilder(0);
         String beforeDot = pair.before;
         String afterDot = pair.after;
@@ -121,8 +134,6 @@ public class BahtText {
         return result.toString();
     }
 
-
-
     private static boolean isZero(final String number) {
         return number.chars().allMatch(c -> c == '0');
     }
@@ -153,7 +164,7 @@ public class BahtText {
         final int length = number.length();
 
         for (int i = 0; i < length; i++) {
-            char ch = number.charAt(i);
+            final char ch = number.charAt(i);
             if (ch != '0') {
                 if (i == (length - 1) && ch == '1' &&
                         (Integer.parseInt(number) % 100 > 10)) {
@@ -163,9 +174,9 @@ public class BahtText {
                 } else if (i == (length - 2) && ch == '1') {
                     result.append(""); // ดักเลข 10 -> สิบ ไม่ใช่ หนึ่งสิบ
                 } else {
-                    result.append(txtNum[((int) ch) - 48]);
+                    result.append(TXT_NUM[((int) ch) - 48]);
                 }
-                result.append(txtWeight[length - i - 1]);
+                result.append(TXT_WEIGHT[length - i - 1]);
             }
         }
         return result.toString();
