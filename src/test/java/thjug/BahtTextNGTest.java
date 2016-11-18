@@ -112,5 +112,11 @@ public class BahtTextNGTest {
         
         assert result.equals(expResult);
     }
+    @Test
+    public void ทศนิยม00ควรจะไม่แสดงคำว่าสตางค์() {
+        final String expResult = "หนึ่งล้านล้านบาท";
+        final String result = BahtText.toText("1,000,000,000,000.00");
+        assert result.equals(expResult);
+    }
 
 }
