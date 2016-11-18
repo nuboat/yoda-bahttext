@@ -123,6 +123,9 @@ public final class BahtText {
             if (afterDot.length() == 1) {
                 afterDot += "0";
             }
+            if("00".equals(afterDot)){
+                return result.toString();
+            }
 
             final String[] afterDotArr = splitString(afterDot);
             for (int i = 0; i < afterDotArr.length; i++) {
