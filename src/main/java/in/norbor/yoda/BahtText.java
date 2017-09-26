@@ -1,4 +1,4 @@
-package in.norbor.bahttext;
+package in.norbor.yoda;
 
 import java.util.StringTokenizer;
 
@@ -140,6 +140,8 @@ public abstract class BahtText {
             } else {
                 result.append("สตางค์");
             }
+        } else {
+            result.append("ถ้วน");
         }
 
         return result.toString();

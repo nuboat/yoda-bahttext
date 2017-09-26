@@ -13,6 +13,7 @@ javacOptions ++= Seq("-encoding", "UTF-8")
 libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "0.11" % "test"
   , "junit" % "junit" % "4.12" % "test"
+  , "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 )
 
 publishTo := Some(

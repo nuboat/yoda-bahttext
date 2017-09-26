@@ -1,4 +1,4 @@
-package in.norbor.bahttext;
+package in.norbor.yoda;
 
 import org.junit.Rule;
 import org.junit.Test;
