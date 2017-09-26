@@ -1,4 +1,4 @@
-package thjug;
+package in.norbor.bahttext;
 
 import org.junit.Rule;
 import org.junit.Test;

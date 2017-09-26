@@ -1,7 +1,12 @@
-package thjug;
+package in.norbor.bahttext;
 
-public class StringPair {
+/**
+ *  @author Peerapat A, Sep 26, 2017
+ */
+public final class StringPair {
+
     public final String before;
+
     public final String after;
 
     public StringPair(final String before, final String after) {

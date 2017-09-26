@@ -1,16 +1,22 @@
-package thjug;
+package in.norbor.bahttext;
 
 import java.util.StringTokenizer;
 
-public final class BahtText {
+/**
+ *  @author Peerapat A, Sep 26, 2017
+ */
+public abstract class BahtText {
+
     private static final String[] TXT_NUM = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
     private static final String[] TXT_WEIGHT = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
     private static final String TXT_ZEROBAHT = "ศูนย์บาท";
-    
+
+    private BahtText() {}
+
     /**
      * final String amount = BahtText.toText(100.00);
-     * 
-     * @param currency 100
+     *
+     * @param  currency 100
      * @return String หนึ่งร้อยบาทถ้วน
      */
     public static String toText(final double currency) {
@@ -19,7 +25,7 @@ public final class BahtText {
 
     /**
      * final String amount = BahtText.toText("100.00");
-     * 
+     *
      * @param currency 100
      * @return String หนึ่งร้อยบาทถ้วน
      */
@@ -125,10 +131,15 @@ public final class BahtText {
             }
 
             final String[] afterDotArr = splitString(afterDot);
-            for (int i = 0; i < afterDotArr.length; i++) {
-                result.append(generateWordNumber(afterDotArr[i]));
+            for (final String afterDotArr1 : afterDotArr) {
+                result.append(generateWordNumber(afterDotArr1));
             }
-            result.append("สตางค์");
+
+            if (afterDot.equals("00")) {
+                result.append("ถ้วน");
+            } else {
+                result.append("สตางค์");
+            }
         }
 
         return result.toString();
