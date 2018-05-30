@@ -2,7 +2,7 @@ organization := "in.norbor"
 
 name := "yoda-bahttext"
 
-version := "1.0b"
+version := "1.0.1"
 
 crossPaths := false
 

@@ -3,20 +3,21 @@ package in.norbor.yoda;
 import java.util.StringTokenizer;
 
 /**
- *  @author Peerapat A, Sep 26, 2017
+ * @author Peerapat A, Sep 26, 2017
  */
 public abstract class BahtText {
 
     private static final String[] TXT_NUM = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
     private static final String[] TXT_WEIGHT = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
-    private static final String TXT_ZEROBAHT = "ศูนย์บาท";
+    private static final String TXT_ZERO_BAHT = "ศูนย์บาท";
 
-    private BahtText() {}
+    private BahtText() {
+    }
 
     /**
      * final String amount = BahtText.toText(100.00);
      *
-     * @param  currency 100
+     * @param currency 100
      * @return String หนึ่งร้อยบาทถ้วน
      */
     public static String toText(final double currency) {
@@ -29,8 +30,7 @@ public abstract class BahtText {
      * @param currency 100
      * @return String หนึ่งร้อยบาทถ้วน
      */
-    public static String toText(final String currency)
-            throws NumberFormatException {
+    public static String toText(final String currency) throws NumberFormatException {
         String number = currency;
 
         throwIfNull(number);
@@ -41,7 +41,7 @@ public abstract class BahtText {
         final StringPair pair = tokenizeStringWithDot(number);
 
         if (isStringNumberCompleteZero(pair)) {
-            return TXT_ZEROBAHT;
+            return TXT_ZERO_BAHT;
         }
         return generateResultString(pair);
     }
@@ -87,13 +87,11 @@ public abstract class BahtText {
     }
 
 
-
     private static boolean isStringNumberCompleteZero(final StringPair pair) {
         final boolean beforeDotIsZero = isZero(pair.before); // ดูว่าหน้าทศนิยมเป็น 0 หรือไม่
         final boolean afterDotIsZero = (pair.after == null) || isZero(pair.after);
 
         return beforeDotIsZero && afterDotIsZero;
-
     }
 
     private static StringPair tokenizeStringWithDot(final String number) {
@@ -102,7 +100,7 @@ public abstract class BahtText {
         final String beforeDot = st.nextToken();
         final String afterDot = (st.hasMoreTokens()) ? st.nextToken() : null; // ทศนิยม
 
-        return new StringPair(beforeDot,afterDot);
+        return new StringPair(beforeDot, afterDot);
     }
 
     private static String generateResultString(final StringPair pair) {
@@ -135,7 +133,7 @@ public abstract class BahtText {
                 result.append(generateWordNumber(afterDotArr1));
             }
 
-            if (afterDot.equals("00")) {
+            if (Integer.parseInt(afterDot) == 0) {
                 result.append("ถ้วน");
             } else {
                 result.append("สตางค์");
@@ -185,7 +183,7 @@ public abstract class BahtText {
                 } else if (i == (length - 2) && ch == '2') {
                     result.append("ยี่"); // ดักเลข 20 -> ยี่สิบ
                 } else if (i == (length - 2) && ch == '1') {
-                    result.append(""); // ดักเลข 10 -> สิบ ไม่ใช่ หนึ่งสิบ
+                    result.substring(0); // ดักเลข 10 -> สิบ ไม่ใช่ หนึ่งสิบ
                 } else {
                     result.append(TXT_NUM[((int) ch) - 48]);
                 }
