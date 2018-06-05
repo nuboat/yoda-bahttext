@@ -3,8 +3,10 @@ package in.norbor.yoda;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- *  @author Peerapat A, Sep 26, 2017
+ * @author Peerapat A, Sep 26, 2017
  */
 public class BahtTextTest {
 
@@ -17,9 +19,9 @@ public class BahtTextTest {
         final String resultFromString = BahtText.toText(inputString);
         final String resultFromDouble = BahtText.toText(inputDouble);
 
-        assert expResult.equals(resultFromDouble);
-        assert resultFromDouble.equals(resultFromString);
-        assert expResult.equals(resultFromString);
+        assertEquals(expResult, resultFromDouble);
+        assertEquals(expResult, resultFromString);
+        assertEquals(resultFromDouble, resultFromString);
     }
 
     @Test
@@ -106,6 +108,22 @@ public class BahtTextTest {
     public void ล้านล้านบาท() {
         final String expResult = "หนึ่งล้านล้านบาทถ้วน";
         final String result = BahtText.toText("1,000,000,000,000");
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void ทศนิยม00ควรจะไม่แสดงคำว่าสตางค์() {
+        final String expResult = "หนึ่งล้านบาทถ้วน";
+        final String result = BahtText.toText("1,000,000.00");
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void ทศนิยม0ควรจะไม่แสดงคำว่าสตางค์2() {
+        final String expResult = "หนึ่งล้านบาทถ้วน";
+        final String result = BahtText.toText(1000000.00);
 
         assertEquals(expResult, result);
     }
