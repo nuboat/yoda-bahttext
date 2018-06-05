@@ -1,6 +1,7 @@
 package in.norbor.yoda;
 
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import static org.junit.Assert.assertEquals;
 
@@ -120,7 +121,7 @@ public class BahtTextTest {
     }
 
     @Test
-    public void ทศนิยม0ควรจะไม่แสดงคำว่าสตางค์() {
+    public void ทศนิยม0ควรจะไม่แสดงคำว่าสตางค์2() {
         final String expResult = "หนึ่งล้านบาทถ้วน";
         final String result = BahtText.toText(1000000.00);
 
